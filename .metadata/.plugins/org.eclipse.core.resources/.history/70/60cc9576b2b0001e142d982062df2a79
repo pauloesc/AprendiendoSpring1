@@ -1,0 +1,28 @@
+package programa.entidad;
+
+public class Empleado {
+
+	private String Nombre;
+	private String Apellido;
+	
+	public Empleado() {
+		super();
+	}
+
+	public String getNombre() {
+		return Nombre;
+	}
+
+	public void setNombre(String nombre) {
+		Nombre = nombre;
+	}
+
+	public String getApellido() {
+		return Apellido;
+	}
+
+	public void setApellido(String apellido) {
+		Apellido = apellido;
+	}
+	
+}

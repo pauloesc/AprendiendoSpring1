@@ -1,0 +1,3 @@
+#Tomcat publish data
+#Fri Jan 12 01:31:14 UYT 2024
+org.eclipse.jst.jee.server\:/binary\:/home/paulo/.m2/repository/org/springframework/spring-web/5.0.5.RELEASE/spring-web-5.0.5.RELEASE.jar=WEB-INF/lib/spring-web-5.0.5.RELEASE.jar

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<modules>
+  <module moduleId="org.eclipse.jst.jee.server:Probando-jax-rs" serverId="paulo-server-tomcat9"/>
+  <module moduleId="org.eclipse.jst.jee.server:springModulo5" serverId="paulo-server-tomcat9 segundo"/>
+  <module moduleId="org.eclipse.jst.jee.server:SpringModulo6" serverId="paulo-server-tomcat9 at localhost"/>
+  <module moduleId="org.eclipse.jst.jee.server:SpringModulo3" serverId="paulo-server-tomcat9 segundo"/>
+</modules>

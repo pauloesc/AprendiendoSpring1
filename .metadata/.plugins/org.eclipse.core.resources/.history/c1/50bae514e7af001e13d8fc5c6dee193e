@@ -1,0 +1,9 @@
+package miPrograma.controladores;
+
+public class Controlador {
+
+	public String muestraInicio() {
+		return "inicio";
+	}
+	
+}

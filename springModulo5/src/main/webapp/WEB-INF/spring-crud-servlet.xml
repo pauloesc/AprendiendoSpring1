@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+<!-- Cuando se utiliza component-scan, Spring examina el paquete (y sus subpaquetes) especificado en -->
+<!-- busca de clases anotadas con anotaciones como @Component, @Service, @Repository o @Controller. -->
+<!-- Estas clases son consideradas automáticamente como componentes de Spring y se -->
+<!-- registran en el contexto de la aplicación. -->
+	<context:component-scan base-package="miPrograma" />
+
+	<!-- Conversión formateo y validación-->
+	<mvc:annotation-driven/>
+
+<!-- 	El InternalResourceViewResolver en Spring MVC es un implementación de la interfaz ViewResolver -->
+<!-- 	que se utiliza para resolver las ubicaciones de las vistas en una aplicación web. -->
+<!-- 	En otras palabras, su función principal es ayudar a Spring a encontrar la ubicación de las -->
+<!-- 	vistas que se deben mostrar al usuario. -->
+	
+<!-- 	En conjunto, estas configuraciones indican a Spring MVC cómo construir la ruta completa a las -->
+<!-- 	vistas JSP en tu aplicación web. Por ejemplo, si tu controlador devuelve "index" como el nombre -->
+<!-- 	de la vista, el InternalResourceViewResolver construirá la ruta completa como "/WEB-INF/view/index.jsp". -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+
+
+    <!-- Origen BBDD y connection pool -->
+	<bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close">
+        <property name="driverClass" value="org.postgresql.Driver" />
+        <property name="jdbcUrl" value="jdbc:postgresql://localhost:5432/hola?useSSL=false" />
+        <property name="user" value="postgres" />
+        <property name="password" value="pass" /> 
+
+        <!-- Propiedades connection pool para C3P0 -->
+        <property name="minPoolSize" value="5" />
+        <property name="maxPoolSize" value="20" />
+        <property name="maxIdleTime" value="30000" />
+	</bean>  
+	
+	
+	
+<!-- La configuración siguiente se encarga de configurar el SessionFactory de Hibernate en una aplicación Spring. -->
+<!-- SessionFactory en Hibernate: -->
+
+<!-- Definición: -->
+<!--     En Hibernate, el SessionFactory es una interfaz que representa una fábrica de sesiones de Hibernate. -->
+<!--     La sesión de Hibernate es una interfaz que proporciona métodos para realizar operaciones en la base de datos, -->
+<!--     como guardar, actualizar o recuperar objetos persistentes. -->
+
+<!-- Importancia: -->
+<!--     El SessionFactory es esencial para la interacción de una aplicación con la base de datos cuando se utiliza -->
+<!--     Hibernate como framework de persistencia. -->
+<!--     Se encarga de gestionar la creación y administración de sesiones de Hibernate. -->
+
+<!-- <property name="packagesToScan" value="miPrograma" />: -->
+<!-- Indica los paquetes que Hibernate debe escanear en busca de clases de entidad -->
+<!-- (entidades mapeadas a tablas en la base de datos). -->
+<!-- En este caso, se busca en el paquete "miPrograma". -->
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="myDataSource" />
+		<property name="packagesToScan" value="entidades" /> <!-- indica donde esta el modelo de la db -->
+		<property name="hibernateProperties">
+		   <props>
+		      <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+		      <prop key="hibernate.show_sql">true</prop>
+		   </props>
+		</property>
+   </bean>	  
+
+
+
+<!-- En resumen, esta configuración está estableciendo un gestor de transacciones específico para Hibernate -->
+<!-- (HibernateTransactionManager). Este gestor de transacciones se encargará de coordinar las transacciones -->
+<!-- de Hibernate en la aplicación. La propiedad sessionFactory le indica al gestor de transacciones cuál es -->
+<!-- la fábrica de sesiones de Hibernate que debe utilizar para interactuar con la base de datos y administrar -->
+<!-- las transacciones.  -->
+	<bean id="miTransactionManager"
+            class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <!-- Habilitar configuración de transacciones basadas en anotaciones -->
+	<tx:annotation-driven transaction-manager="miTransactionManager" />
+
+
+
+	<!-- location indica donde estan los recursos -->
+	<!-- mapping indica que todas las solicitudes que comienzan con "/recursoss/" 
+	serán manejadas por este controlador de recursos. -->
+	
+	<!-- ChatGPT: Cuando una solicitud llega a la aplicación con una URL que coincide con el patrón
+	definido en mapping, el controlador de recursos de Spring MVC manejará la solicitud y
+	buscará el recurso en la ubicación física especificada en location, devolviéndolo al navegador. -->
+	<mvc:resources location="/recursoss/" mapping="/url_Recursos/**"></mvc:resources>
+
+
+</beans>

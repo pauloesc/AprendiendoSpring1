@@ -1,0 +1,52 @@
+package relacionEntreTablasUnoAmuchos;
+
+import java.util.Date;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+public class Principal2 {
+
+	public static void main(String[] args) {
+
+		SessionFactory MiFabricaDeSessiones = 	new Configuration()
+												.configure("hibernate2.cfg.xml")
+												.addAnnotatedClass(Cliente.class)
+												.addAnnotatedClass(Detalles_cliente.class)
+												.buildSessionFactory();
+		
+		Session miSession = MiFabricaDeSessiones.openSession();
+		
+		try {
+			
+			Cliente c1 = new Cliente("cliente1","cliente1","cliente1");
+			
+			Pedido p1 = new Pedido( new Date(), "master");
+			Pedido p2 = new Pedido( new Date(), "master");
+			
+			p1.setCliente(c1);
+			p2.setCliente(c1);
+			
+			c1.agregarPedidos(p1);
+			c1.agregarPedidos(p2);
+
+			Detalles_cliente dc1 = new Detalles_cliente("d-cliente1", "d-cliente1", "d-cliente1");
+
+			c1.setDetalles(dc1);
+			
+			dc1.setCliente(c1);
+			
+			miSession.beginTransaction();
+			miSession.save(c1);
+			miSession.getTransaction().commit();
+			
+		} finally {
+			// TODO: handle finally clause
+		}
+		
+		
+		
+	}
+
+}

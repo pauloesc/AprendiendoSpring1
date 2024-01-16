@@ -1,0 +1,20 @@
+package programa;
+
+import java.io.File;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class Principal {
+
+	public static void main(String[] args) {
+	
+		ObjectMapper mapeador = new ObjectMapper();
+		
+		File json = new File("datosJason/cliente.json");
+		
+		Empleado e = mapeador.readValue(json, Empleado.class)
+		
+
+	}
+
+}

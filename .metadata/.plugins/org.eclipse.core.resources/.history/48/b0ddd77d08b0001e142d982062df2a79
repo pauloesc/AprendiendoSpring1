@@ -1,0 +1,72 @@
+package miPrograma.configuracion;
+
+import java.beans.PropertyVetoException;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+
+@Configuration
+@EnableWebMvc
+@ComponentScan(basePackages = {"miPrograma.controladores"})
+@PropertySource("classpath:conexionDb-Postgresql.properties")
+public class Configuracion {
+
+	//en dicha variable se va a guardar la info leida de conexionDb-Postgresql.properties
+	@Autowired
+	private Environment entorno;
+	
+	@Bean
+	public ViewResolver ResolvedorDeVistas() {
+		
+		//se encarga de resolver la vista de los recursos internos
+		InternalResourceViewResolver vr = new InternalResourceViewResolver();
+
+		//la ruta donde estan dichas vistas
+		vr.setPrefix("/WEB-INF/vistas/");
+		//el tipo de extension de las vistas
+		vr.setSuffix(".jsp");
+
+		
+		
+		return vr;
+	}
+	
+	@Bean
+	public DataSource seguridad() {
+		
+		//crear pool de conexiones
+		ComboPooledDataSource pool = new ComboPooledDataSource();
+		
+		//establecer el driver jdbc
+		try {
+			pool.setDriverClass(entorno.getProperty("jdbc.driver"));
+		} catch (PropertyVetoException e) {
+			e.printStackTrace();
+		}
+		
+		//establecer propiedades de conexion
+		pool.setJdbcUrl(entorno.getProperty("jdbc.url"));
+		pool.setUser(entorno.getProperty("jdbc.user"));
+		pool.setPassword(entorno.getProperty("jdbc.password"));
+		
+		//propiedades de conexion del pool
+		pool.setInitialPoolSize( Integer.parseInt( entorno.getProperty("initialPoolSize") ));
+		pool.setPassword(entorno.getProperty("jdbc.password"));
+		pool.setPassword(entorno.getProperty("jdbc.password"));
+		
+		return pool;
+		
+	}
+
+}

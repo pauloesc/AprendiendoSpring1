@@ -1,0 +1,32 @@
+package programa.controlador;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import programa.entidad.Empleado;
+
+@RestController //
+@RequestMapping("/prueba")
+public class Controlador {
+
+	@GetMapping("/saludo")
+	public String funcion1() {
+		return "funciona";
+	}
+	
+	@GetMapping("/lista")
+	public List<Empleado> funcion2() {
+
+		List<Empleado> l = new ArrayList<Empleado>();
+		
+		l.add(new Empleado("juan","diaz"));
+		l.add(new Empleado("juan2","diaz2"));
+		
+		return l;
+	}
+	
+}

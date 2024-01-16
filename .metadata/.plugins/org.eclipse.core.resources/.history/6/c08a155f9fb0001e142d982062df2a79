@@ -1,0 +1,14 @@
+{
+	"edad":100,
+	"id":3,
+	"nombre":"pol",
+	"apellido":"sa",
+	"activo":true,
+	"idiomas":["ing", "fran"],
+	"datos_registroo":{
+		"domicilio":"ciudad a",
+		"ciudad":"montevideo",
+		"codigoP":"11",
+		"pais":"uruguay"
+	}
+}

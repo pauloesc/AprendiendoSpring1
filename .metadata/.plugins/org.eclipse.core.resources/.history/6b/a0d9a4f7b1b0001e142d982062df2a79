@@ -1,0 +1,8 @@
+package programa.entidad;
+
+public class Empleado {
+
+	private String Nombre;
+	private String Apellido;
+	
+}

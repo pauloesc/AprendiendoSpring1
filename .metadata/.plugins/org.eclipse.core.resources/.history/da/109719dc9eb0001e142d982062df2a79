@@ -1,0 +1,12 @@
+package programa;
+
+public class DatosEmpleados {
+		
+	private String domicilio;
+	private String ciudad;
+	private String codigoP;
+	private String pais;
+	
+	
+	
+}

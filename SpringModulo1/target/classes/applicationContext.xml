@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd">
+
+    
+<context:property-placeholder location="classpath:valores.properties" />
+
+
+
+
+<!-- en id va el nombre del bean -->
+<!-- en class va la direccion de la clase que el bean retornara -->
+<!-- init-method recibe el nombre de la funcion que se llama antes de entregar el bean  -->
+<!-- destroy-method recibe el nombre de la funcion que se ejecuta antes de destruirse el objeto -->
+<bean id="miEmpleado1" class="prueba.IoC.DirectorEmpleado"
+init-method="init_nombre" destroy-method="destroy_nombre" scope="prototype">
+	<!-- esto inyecta la dependencia miInforme en la clase DirectorEmpleado -->
+	<constructor-arg ref="miInforme"></constructor-arg>
+</bean>
+
+
+
+
+<!-- Creacion de la dependencia que construye objetos de tipo informe-->
+<!-- Que el scope sea "singleton" significa que siempre entrega el mismo objeto-->
+<!-- Que el scope sea "prototype" significa que entrega un objeto diferente -->
+<bean id="miInforme" class="prueba.IoC.Informe" scope="prototype">
+</bean>
+
+
+
+
+<!-- bean para inyeccion de dependencia mediante metodo set -->
+<bean id="miEmpleado2" class="prueba.IoC.SecretarioEmpleado"
+init-method="" destroy-method="" scope="prototype">
+	<!-- esto inyecta la dependencia miInforme en la clase SecretarioEmpleado -->
+	<!-- observar que el nombre del atr name es "informeNuevo" y no "setInformeNuevo"  -->
+	<!-- ref="miInforme" indica que se inyecta un objeto de tipo informe -->
+	<property name="informeNuevo" ref="miInforme"></property>
+	<!-- inyecta  value en las variables correspondientes-->
+	<!-- observar que atr name tiene el valor email y no el valor setEmail  -->
+	<property name="email" value="${emailDesdeProperties}"></property>
+	<property name="nombreEmpresa" value="nombre_empresa"></property>
+</bean>
+
+
+</beans>

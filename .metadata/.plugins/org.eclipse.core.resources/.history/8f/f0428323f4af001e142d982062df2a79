@@ -1,0 +1,44 @@
+package miPrograma.controladores;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.User.UserBuilder;
+
+@Configuration
+@EnableWebSecurity
+public class ConfSeguridadSpring extends WebSecurityConfigurerAdapter {
+
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		
+		UserBuilder u = User.withDefaultPasswordEncoder();
+		
+		auth.inMemoryAuthentication()
+		.withUser(u.username("user1").password("123").roles("admin"))
+		.withUser(u.username("user2").password("234").roles("user"))
+		.withUser(u.username("user3").password("345").roles("ayudante"))
+		.withUser(u.username("user4").password("456").roles("admin"));
+		
+	}
+
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+	
+		http
+		.authorizeHttpRequests()
+		.anyRequest()
+		.authenticated()
+		.and()
+		.formLogin()
+		.loginPage("/miFormularioLogin")
+		.loginProcessingUrl("/urlLogin")
+		.permitAll();
+			}
+
+	
+	
+}

@@ -1,0 +1,9 @@
+package programa.controlador;
+
+public class EmpleadoError {
+
+	private int estado;
+	private String mensaje;
+		
+	
+}

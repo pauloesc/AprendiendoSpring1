@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;string&apos; in &apos;programa.Principal.main(...)&apos; to &apos;texto&apos;&#x0A;- Original project: &apos;SpringModulo7.0&apos;&#x0A;- Original element: &apos;programa.Principal.main(String[]).string&apos;&#x0A;- Renamed element: &apos;string&apos;&#x0A;- Update references to refactored element" description="Rename local variable &apos;string&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src=/optional=/true=/=/maven.pomderived=/true=/&lt;programa{Principal.java[Principal~main~\[QString;@string!420!441!427!432!QString;!0!false" name="texto" references="true" stamp="1704990380597" version="1.0"/>
+</session>

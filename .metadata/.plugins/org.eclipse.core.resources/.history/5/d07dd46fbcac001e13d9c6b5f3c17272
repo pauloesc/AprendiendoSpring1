@@ -1,0 +1,92 @@
+package relacionEntreTablas;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+
+@Entity
+// esta clase se asociara con la tabla clientes, que ya esta creada en la bd.
+@Table(name="cliente")
+public class Cliente {
+
+	//@Column(name="id") asocia la variable a la columna llamada id.
+	//con @Id indicamos el campo que es primary key
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="Id")
+	private int id;
+	@Column(name="Nombre")
+	private String  nombre;
+	@Column(name="Apellido")
+	private String  apellido;
+	@Column(name="Direccion")
+	private String  direccione;
+
+	
+	//cualquier cambio se propagara a detalles cliente
+	@OneToOne( cascade = CascadeType.ALL )
+	
+	//crea en la tabla cliente una columna llamada fk_direccion, clave extrangera de la clave de la tabla detalles_cliente.
+	@JoinColumn(name = "fk_direccion")
+	private Detalles_cliente detalles = null;
+	
+	
+	public Cliente() {
+	}
+	
+	
+	public Cliente(String nombre, String apellido, String direccione) {
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.direccione = direccione;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Clientes ==>> [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", direccione=" + direccione
+				+ "]";
+	}
+
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public String getApellido() {
+		return apellido;
+	}
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+	public String getDireccione() {
+		return direccione;
+	}
+	public void setDireccione(String direccione) {
+		this.direccione = direccione;
+	}
+	public Detalles_cliente getDetalles() {
+		return detalles;
+	}
+	public void setDetalles(Detalles_cliente detalles) {
+		this.detalles = detalles;
+	}
+
+	
+	
+}

@@ -1,0 +1,1 @@
+INDEX VERSION 1.4+/home/paulo/eclipse-workspace2/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes

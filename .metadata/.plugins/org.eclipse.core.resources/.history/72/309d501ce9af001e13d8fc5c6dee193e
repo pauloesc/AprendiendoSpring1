@@ -1,0 +1,7 @@
+package miPrograma.configuracion;
+
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+
+public class ConfSeguridadSpring extends WebSecurityConfigurerAdapter {
+
+}

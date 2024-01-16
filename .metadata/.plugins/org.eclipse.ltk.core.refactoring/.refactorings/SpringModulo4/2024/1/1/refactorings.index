@@ -1,0 +1,21 @@
+1704466443040	Move file
+1704478195073	Copy file
+1704478221630	Copy file
+1704481316474	Delete element
+1704481320588	Delete element
+1704485310565	Rename resource 'persistence.xml'
+1704485342994	Move file
+1704485471239	Rename resource 'persistence.cfg.xml'
+1704485497859	Delete element
+1704485503420	Copy file
+1704486871972	Rename resource 'hibernate.cfg.xml'
+1704536359386	Extract method 'imprimirListaClientes'
+1704540393818	Copy compilation unit
+1704551145061	Delete element
+1704551151100	Delete element
+1704551165232	Delete element
+1704554007789	Copy compilation unit
+1704554084238	Rename type 'Clientes'
+1704554627240	Rename type 'Principal'
+1704566688578	Copy file
+1704573128806	Rename package 'relacionEntreTablas'

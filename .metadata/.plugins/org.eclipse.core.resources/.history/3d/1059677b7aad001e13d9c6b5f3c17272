@@ -1,0 +1,13 @@
+CREATE TABLE pedido (
+    id SERIAL PRIMARY KEY,
+    fecha date DEFAULT NULL,
+    forma_pago VARCHAR(128),
+    cliente_id int DEFAULT NULL
+);
+
+ALTER TABLE pedido
+ADD CONSTRAINT fk_pedido
+FOREIGN KEY (cliente_id)
+REFERENCES cliente(id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;

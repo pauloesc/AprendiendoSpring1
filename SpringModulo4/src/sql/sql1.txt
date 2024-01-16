@@ -1,0 +1,43 @@
+DROP TABLE pedido;
+DROP TABLE cliente;
+DROP TABLE detalles_cliente;
+
+
+CREATE TABLE detalles_cliente (
+    id_dc SERIAL PRIMARY KEY,
+    WEB VARCHAR(128) DEFAULT NULL,
+    telefono VARCHAR(128) DEFAULT NULL,
+    direccion VARCHAR(128) DEFAULT NULL
+);
+
+CREATE TABLE cliente (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(128) DEFAULT NULL,
+    apellido VARCHAR(128) DEFAULT NULL,
+    direccion VARCHAR(128) DEFAULT NULL
+);
+
+ALTER TABLE cliente
+ADD CONSTRAINT fk_detalles
+FOREIGN KEY (id)
+REFERENCES detalles_cliente(id_dc)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+CREATE TABLE pedido (
+    id SERIAL PRIMARY KEY,
+    fecha TIMESTAMP DEFAULT NULL,
+    forma_pago VARCHAR(128),
+    cliente_id int DEFAULT NULL
+);
+
+ALTER TABLE pedido
+ADD CONSTRAINT fk_pedido
+FOREIGN KEY (cliente_id)
+REFERENCES cliente(id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+
+
+++

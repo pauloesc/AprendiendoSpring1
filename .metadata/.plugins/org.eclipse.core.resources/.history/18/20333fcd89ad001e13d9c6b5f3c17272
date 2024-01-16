@@ -1,0 +1,60 @@
+package relacionEntreTablasUnoAUnoBidireccional;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import programa.Clientes;
+
+public class Principal2 {
+
+	public static void main(String[] args) {
+
+		SessionFactory MiFabricaDeSessiones = 	new Configuration()
+												.configure("hibernate2.cfg.xml")
+												.addAnnotatedClass(Cliente.class)
+												.addAnnotatedClass(Detalles_cliente.class)
+												.buildSessionFactory();
+		
+		Session miSession = MiFabricaDeSessiones.openSession();
+		
+		try {
+			Cliente c1 = new Cliente("Rusia203","Putin203","Moscu203");
+			Detalles_cliente dc1 = new Detalles_cliente("armas.com203", "007203", "chernovil203");
+			c1.setDetalles(dc1);
+			miSession.beginTransaction();
+			miSession.save(c1);
+			miSession.getTransaction().commit();
+			//miSession.close();
+			
+//			a partir de un detalle del cliente obtener un cliente
+//			miSession.beginTransaction();
+//			Detalles_cliente dc = miSession.get(Detalles_cliente.class, 1);
+//			miSession.getTransaction().commit();
+//			miSession.close();
+			
+			//miSession = MiFabricaDeSessiones.openSession();
+			String hql = "from Detalles_cliente";
+			List<Detalles_cliente> lista = miSession.createQuery(hql, Detalles_cliente.class).getResultList();
+			miSession.close();
+			
+			System.out.println(lista.get(0).getWeb());
+			System.out.println(lista.get(0).getCliente().getNombre());
+			/*
+			 * para eliminar un detalle_cliente si borrar el cliente (recordar que hay cascada)
+			 * tengo que hacer dc = miSession.get(Detalles_clients.class, id);
+			 * dc.setCliente(null)
+			 * En caso de realizar dicha operacion va a dar error por la fk qque hay en la db
+			 */
+			
+		} finally {
+			// TODO: handle finally clause
+		}
+		
+		
+		
+	}
+
+}
